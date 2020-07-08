@@ -29,7 +29,7 @@ class RoundTest < Minitest::Test
 
     assert_equal 1, round.guesses.count
     assert_equal 'Correct!', round.guesses.first.feedback
-    assert_equal 1, round.number_correct
+    assert_equal 1, round.correct_guesses
     assert_equal card_2, round.current_card
   end
 
@@ -44,7 +44,7 @@ class RoundTest < Minitest::Test
 
     assert_equal 2, round.guesses.count
     assert_equal 'Incorrect.', round.guesses.last.feedback
-    assert_equal 1, round.number_correct
+    assert_equal 1, round.correct_guesses
     assert_equal 50, round.percent_correct
   end
 
@@ -56,14 +56,15 @@ class RoundTest < Minitest::Test
     round = Round.new(deck)
     edge = nil
 
+    assert_equal 'yes', round.deck.cards[2].answer
+
     round.record_guess(5)
     round.record_guess('')
     round.record_guess(edge)
 
     assert_equal 0, round.percent_correct
-    assert_equal 'yes', round.deck.cards[2].answer
     assert_nil nil, round.guesses.last.guess
-    assert_equal 0, round.number_correct
+    assert_equal 0, round.correct_guesses
   end
 
 end

@@ -3,32 +3,30 @@ require "./lib/card"
 
 class Round
 
-  attr_reader :deck, :guesses, :number_correct
+  attr_reader :deck, :guesses, :correct_guesses
 
   def initialize(deck)
     @deck = deck
     @guesses = []
-    @number_correct = 0
-    @current_card = 0
+    @correct_guesses = 0
+    @number_of_cards = deck.cards.count
   end
 
   def current_card
-    @deck.cards[@current_card]
+    @deck.cards[0]
   end
 
   def record_guess(response)
     @guesses << Guess.new(response.to_s, current_card)
     guess = @guesses.last
     if guess.correct?
-      @number_correct += 1
-    else
-      @number_correct
+      @correct_guesses += 1
     end
-    @current_card += 1
+    @deck.cards.shift
   end
 
   def percent_correct
-  (@number_correct.to_f / deck.cards.length * 100).to_i
+    (@correct_guesses.to_f / @number_of_cards * 100).to_i
   end
 
   def start
@@ -39,7 +37,7 @@ class Round
     game
     puts "******* Game over! *******"
     sleep 1.5
-    puts "You had #{@number_correct} correct guesses out of #{deck.cards.count} for a score of #{percent_correct}"
+    puts "You had #{@correct_guesses} correct guesses out of #{deck.cards.count} for a score of #{percent_correct}"
   end
 
   def game
