@@ -22,7 +22,6 @@ class Round
     if guess.correct?
       @correct_guesses += 1
     end
-    @deck.cards.shift
   end
 
   def percent_correct
@@ -30,19 +29,19 @@ class Round
   end
 
   def start
-    puts "Welcome! You're playing with #{deck.cards.count} cards"
+    puts "Welcome! You're playing with #{@number_of_cards} cards"
     sleep 1.5
     puts "---------------------------------"
     sleep 1.5
     game
     puts "******* Game over! *******"
     sleep 1.5
-    puts "You had #{@correct_guesses} correct guesses out of #{deck.cards.count} for a score of #{percent_correct}"
+    puts "You had #{@correct_guesses} correct guesses out of #{@number_of_cards} for a score of #{percent_correct}"
   end
 
   def game
-    deck.cards.each do |card|
-    puts "This is card number #{@current_card + 1} out of #{deck.cards.count}"
+    deck.cards.each_with_index do |card, index|
+    puts "This is card number #{index + 1} out of #{@number_of_cards}"
     sleep 1.5
     puts "Question: #{card.question}"
     input = gets.chomp

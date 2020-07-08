@@ -67,4 +67,9 @@ class RoundTest < Minitest::Test
     assert_equal 0, round.correct_guesses
   end
 
+  def test_it_can_start_game
+
+
+  end
+
 end

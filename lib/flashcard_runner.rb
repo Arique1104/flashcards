@@ -9,6 +9,7 @@ class FlashcardRunner
   filename = "./lib/cards.txt"
   cards = CardGenerator.new(filename).loader
   deck = Deck.new(cards)
+  # require "pry"; binding.pry
   round = Round.new(deck)
   round.start
 
